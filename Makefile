@@ -17,10 +17,12 @@ kube-config: ## Generate kubernetes config files for dev cluster
 create-deps: ## Create dependency services in kubernetes.
 	@echo "Creating dependency services"
 	helm install --name rethinkdb --set rethinkdbPassword=password stable/rethinkdb
+	helm install --name redis --set redisPassword=password stable/redis
 
 delete-deps: ## Remove dependency services.
 	@echo "Removing dependencies from kubernetes"
 	helm del --purge rethinkdb
+	helm del --purge redis
 
 create: ## Create the kubernetes deployment and service from files in bin/kube/.generated/
 	@echo "Creating deployment"
