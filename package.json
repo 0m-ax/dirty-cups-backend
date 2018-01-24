@@ -5,8 +5,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon -L index.js"
+    "local": "nodemon -L index.js"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.2",
+    "ioredis": "^3.2.2",
+    "rethinkdbdash": "^2.3.31",
+    "uuid": "^3.2.1"
+  }
 }
