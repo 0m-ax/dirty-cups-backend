@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: $APP_NAME
+  labels:
+    app: $APP_NAME
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
+spec:
+  backend:
+    serviceName: default-http-backend
+    servicePort: 80
+  rules:
+    - host: $APP_URL
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: $APP_NAME
+              servicePort: 3000
