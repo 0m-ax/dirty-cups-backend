@@ -1,11 +1,12 @@
 const express = require('express')
 const cookieParser = require('cookie-parser')
+const bodyParser = require('body-parser')
 let app = express()
 app.use(cookieParser('im old gregg'))
+app.use(bodyParser.json())
+/*
 const User = require('./lib/user')
 const Session = require('./lib/session')
-
-
 app.use((req,res,next)=>{
     console.log(req.cookies)
     if(req.cookies.sessionID){
@@ -17,6 +18,7 @@ app.use((req,res,next)=>{
         next()
     }
 })
+
 app.get('/newSession',(req,res,next)=>{
     let user = new User({
         userID:'meme',
@@ -36,9 +38,13 @@ app.get('/getSession/:sessionID',(req,res,next)=>{
     .then((session)=>res.send(session))
     .catch(next)
 })
+
+*/
+app.use(require('./app'))
 app.use(function (err, req, res, next) {
     res.status(err.statusCode || 500).json({
-        message:err.message
+        message:err.message,
+        stack:err.stack
     })
 })
 app.listen(3000)
