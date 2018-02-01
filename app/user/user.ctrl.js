@@ -21,3 +21,14 @@ module.exports.signup = (req,res,next)=>{
     })
     .catch((error)=>next(error||new Error("unknown error")))
 }
+module.exports.getByUserID = (req,res,next)=>{
+    User.getByUserID(req.params.userID)
+    .then((user)=>{
+        if(!req.data){
+            req.data = {}
+        }
+        req.data.user = user
+        next()
+    })
+    .catch((error)=>next(error||new Error("unknown error")))
+}

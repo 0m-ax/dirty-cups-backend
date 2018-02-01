@@ -4,7 +4,8 @@ const userPerm = require('./user.perm')
 const user = require('./user')
 const session = require('../session/session')
 //app.post('/create',userPerm.create,reportCtrl.create,report)
-//app.use('/getByReportID/:reportID',reportPerm.getByReportID,reportCtrl.getByReportID,report)
+app.use('/getByUserID/:userID',userPerm.getByUserID,userCtrl.getByUserID,user)
 app.post('/login',userPerm.login,userCtrl.login,session)
 app.post('/signup',userPerm.signup,userCtrl.signup,user)
+
 module.exports = app;
