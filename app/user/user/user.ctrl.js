@@ -1,0 +1,1 @@
+module.exports.export = (req,res,next)=>res.send(req.data.user.export())

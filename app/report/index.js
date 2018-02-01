@@ -7,6 +7,3 @@ app.use('/getByReportID/:reportID',reportPerm.getByReportID,reportCtrl.getByRepo
 app.post('/searchReportsByContactHandle',reportPerm.searchReportsByContactHandle,reportCtrl.searchReportsByContactHandle,report)
 
 module.exports = app;
-/*
-
-*/

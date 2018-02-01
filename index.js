@@ -10,42 +10,27 @@ app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Headers', 'Content-Type');
     next();
 })
-/*
+
 const User = require('./lib/user')
 const Session = require('./lib/session')
-app.use((req,res,next)=>{
-    console.log(req.cookies)
-    if(req.cookies.sessionID){
-        Session.getSession(req.cookies.sessionID)
-        .then((user)=>{req.user = user})
-        .then(()=>next())
-        .catch((error)=>next())
-    }else{
-        next()
+app.use(async (req,res,next)=>{
+    try {
+        if(req.query.sessionID){
+            let session = await Session.getSession(req.query.sessionID)
+            if(!session){
+                throw new Error('session not found')
+            }
+            let user = User.getByUserID(session.userID)
+            if(!user){
+                throw new Error('user not found')
+            }
+            req.user = user;
+        }
+    } catch (error) {
+        next(error)
     }
+    next()
 })
-
-app.get('/newSession',(req,res,next)=>{
-    let user = new User({
-        userID:'meme',
-        email:'test'
-    })
-    Session.createSession(user)
-    .then((session)=>{
-        res.cookie('sessionID',session.sessionID, { maxAge: 900000, httpOnly: true });
-        res.send(session)
-    })
-    .catch(next)
-})
-
-app.get('/getSession/:sessionID',(req,res,next)=>{
-    console.log(req.user)
-    Session.getSession(req.params.sessionID)
-    .then((session)=>res.send(session))
-    .catch(next)
-})
-
-*/
 app.use(require('./app'))
 app.use(function (err, req, res, next) {
     res.status(err.statusCode || 500).json({
