@@ -4,6 +4,12 @@ const bodyParser = require('body-parser')
 let app = express()
 app.use(cookieParser('im old gregg'))
 app.use(bodyParser.json())
+app.use(function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', 'http://dirtycups.dev.maxc.in');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+})
 /*
 const User = require('./lib/user')
 const Session = require('./lib/session')
